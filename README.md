@@ -18,9 +18,9 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 * The following Yum Repositories are added to the box during the setup process:
 
-** [RPMForge](http://repoforge.org/)
+	[RPMForge](http://repoforge.org/)
 
-** [PuppetLabs](http://puppetlabs.com/)
+	[PuppetLabs](http://puppetlabs.com/)
 
 ##### Reference Materials:
 
