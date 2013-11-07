@@ -35,7 +35,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 ## Existing Vagrant BaseBoxes
 ---
 
-1. [CEntOS - Minimal - 6.4 - Built: 2013-11-02](https://drive.google.com/a/gitmachines.com/file/d/0BzWZ9l36IG9hM2t5Wkw1R01xTTA/edit?usp=sharing)
+1. [CEntOS - Minimal - 6.4 - Built: 2013-11-02](https://drive.google.com/a/gitmachines.com/file/d/0BzWZ9l36IG9hM2t5Wkw1R01xTTA/edit?usp=sharing) (Private, at the moment)
 
 ## Creating a BaseBox
 
