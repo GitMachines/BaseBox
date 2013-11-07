@@ -5,7 +5,9 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 ##### Tasks:
 
 [x] Document steps required to build a BaseBox
+
 [x] Build a 64-bit BaseBox using CEntOS 6 Minimal
+
 [ ] Build a 32-bit BaseBox using CEntOS 6 Minimal
 
 ##### Note(s):
@@ -13,6 +15,12 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 * These instructions have been used to build a BaseBox in CEntOS 6.4 Minimal. While it should be the case that they work for all flavors and most versions of CEntOS, we can't know until we try.
 
 * All machines, as they are built and tested, will be inlcuded in Google Drive until we decide to release them as official Vagrant BaseBox machines.
+
+* The following Yum Repositories are added to the box during the setup process:
+
+** [RPMForge](http://repoforge.org/)
+
+** [PuppetLabs](http://puppetlabs.com/)
 
 ##### Reference Materials:
 
@@ -114,19 +122,23 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 ```bash
 	service sshd start
 	chkconfig sshd on
-	groupadd admin
-	groupadd vagrant
-	useradd -g vagrant -G admin vagrant
+	groupadd admin # Per Vagrant's documentation
+	groupadd vagrant 
+	useradd -g vagrant -G admin vagrant # Create the user, and add them to both groups
 	passwd vagrant
-	   # specify 'vagrant' for the password, per Vagrant's recommendations.
+	   # specify **'vagrant'** for the password, per Vagrant's recommendations.
+	# Results in the following added to the end of the sudoer's file
+	#    # Added for Vagrant Support
+	#    Defaults        env_keep += \"SSH_AUTH_SOCK\"
+	#    %admin   ALL=NOPASSWD:ALL"
 	echo -e "\n# Added for Vagrant Support\nDefaults	env_keep += \"SSH_AUTH_SOCK\"\n%admin   ALL=NOPASSWD:ALL" >> /etc/sudoers
+	# Attempts to comment out requiretty, per Vagrant's documentation
 	sed -ie 's/Defaults\s\+requiretty/#Defaults   requiretty/g' /etc/sudoers
-	su - vagrant
-	mkdir .ssh
-	curl -k https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > .ssh/authorized_keys
-	chmod 0700 .ssh
-	chmod 0600 .ssh/authorized_keys
-	exit # To back out of the vagrant user's session
+	mkdir ~vagrant/.ssh
+	curl -k https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > ~vagrant/.ssh/authorized_keys
+	chmod 0700 ~vagrant/.ssh
+	chmod 0600 ~vagrant/.ssh/authorized_keys
+	chown -R vagrant:vagrant ~/vagrant/.ssh
 ```
 
 2.   Use the context menu to auto-mount the VirtualBox Guest Additions ISO.
@@ -151,7 +163,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 1. Run the following commands:
 
 ```bash
-	yum clean all # (To remove temporary files and fastestmirror checks)
+	yum clean all # To remove temporary files and fastestmirror checks
 	shutdown -h now
 ```
 
