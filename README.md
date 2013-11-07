@@ -194,4 +194,9 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 	vagrant box add 'VirtualBox_Name-2' 'Name'.box
 ```
 
-2.   Modify any existing VagrantFile's with 'VirtualBox_Name-2' and no URL and it should use your new box correctly.
+2.   Modify any existing Vagrantfile's with:
+
+```bash
+	config.vm.box = "VirtualBox_Name-2"
+	# config.vm.box_url = "" # Until we make the BaseBox public
+```
