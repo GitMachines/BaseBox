@@ -2,6 +2,12 @@
 
 A repository containing instructions, scripts, etc., relating to creating a GitMachines Vagrant BaseBox
 
+##### Tasks:
+
+[x] Document steps required to build a BaseBox
+[x] Build a 64-bit BaseBox using CEntOS 6 Minimal
+[ ] Build a 32-bit BaseBox using CEntOS 6 Minimal
+
 ##### Note(s):
 
 * These instructions have been used to build a BaseBox in CEntOS 6.4 Minimal. While it should be the case that they work for all flavors and most versions of CEntOS, we can't know until we try.
@@ -10,13 +16,13 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 ##### Reference Materials:
 
-* [Vagrant's BaseBox documentation](http://docs-v1.vagrantup.com/v1/docs/base_boxes.html)
+* [Vagrant's BaseBox documentation](http://docs-v1.vagrantup.com/v1/docs/base_boxes.html) - Date: 2013-11-07
  
-* [okfn/ckan on github](https://github.com/okfn/ckan/wiki/How-to-Create-a-CentOS-Vagrant-Base-Box)
+* [okfn/ckan on github](https://github.com/okfn/ckan/wiki/How-to-Create-a-CentOS-Vagrant-Base-Box) - Date: 2013-11-07
 
-* [CEntOS's Guest Additions documentation](http://wiki.centos.org/HowTos/Virtualization/VirtualBox/CentOSguest)
+* [CEntOS's Guest Additions documentation](http://wiki.centos.org/HowTos/Virtualization/VirtualBox/CentOSguest) - Date: 2013-11-07
 
-* [CEntOS's RPMForge documentation (Required for DKMS)](http://wiki.centos.org/AdditionalResources/Repositories/RPMForge)
+* [CEntOS's RPMForge documentation (Required for DKMS)](http://wiki.centos.org/AdditionalResources/Repositories/RPMForge) - Date: 2013-11-07
 
 ## Existing Vagrant BaseBoxes
 ---
@@ -98,7 +104,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 	rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
 	rpm -i http://yum.puppetlabs.com/el/6/products/i386/puppetlabs-release-6-7.noarch.rpm
 	yum install nano vim openssh-server wget gcc bzip2 make dkms puppet -y
-	yum groupinstall "X Window System" -y (Required for VirtualBox Guest Additions, sadly)
+	yum groupinstall "X Window System" -y # Required for VirtualBox Guest Additions, sadly
 ```
 
 #### Configure our system
@@ -112,7 +118,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 	groupadd vagrant
 	useradd -g vagrant -G admin vagrant
 	passwd vagrant
-	   specify 'vagrant' for the password, per Vagrant's recommendations.
+	   # specify 'vagrant' for the password, per Vagrant's recommendations.
 	echo -e "\n# Added for Vagrant Support\nDefaults	env_keep += \"SSH_AUTH_SOCK\"\n%admin   ALL=NOPASSWD:ALL" >> /etc/sudoers
 	sed -ie 's/Defaults\s\+requiretty/#Defaults   requiretty/g' /etc/sudoers
 	su - vagrant
@@ -120,7 +126,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 	curl -k https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > .ssh/authorized_keys
 	chmod 0700 .ssh
 	chmod 0600 .ssh/authorized_keys
-	exit (To back out of the vagrant user's session)
+	exit # To back out of the vagrant user's session
 ```
 
 2.   Use the context menu to auto-mount the VirtualBox Guest Additions ISO.
@@ -145,7 +151,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 1. Run the following commands:
 
 ```bash
-	yum clean all (To remove temporary files and fastestmirror checks)
+	yum clean all # (To remove temporary files and fastestmirror checks)
 	shutdown -h now
 ```
 
