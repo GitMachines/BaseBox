@@ -87,18 +87,18 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 #### Update the VM so that we can get the proper Kernel Headers (required for VirtualBox Guest Additions installation) and so other do not have to update as much
 
-1.  Run the following commands:
+1.   Run the following commands:
 
 ```bash
 	yum update -y
 	yum install kernel-devel -y
 ```
 
-2.  Reboot the VM (Required if the Kernel was updated during this process, better safe than sorry)
+2.   Reboot the VM (Required if the Kernel was updated during this process, better safe than sorry)
 
 #### Install the needed services/tools/yum-repositories
 
-1.  Run one of the following commands:
+1.   Run one of the following commands:
 
 ```bash
 	rpm -i http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm -y
@@ -106,7 +106,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 	rpm -i http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm -y
 ```
 
-2.  Run the following commands:
+2.   Run the following commands:
 
 ```bash
 	rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
@@ -117,7 +117,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 #### Configure our system
 
-1.  Run the following commands:
+1.   Run the following commands:
 
 ```bash
 	service sshd start
@@ -152,7 +152,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 #### Set our VM's hostname
 
-1. Run the following commands:
+1.   Run the following commands:
 
 ```bash
 	hostname GitMachines-BaseBox
@@ -160,7 +160,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 ```
 
 #### Shutdown the VM, it is complete
-1. Run the following commands:
+1.   Run the following commands:
 
 ```bash
 	yum clean all # To remove temporary files and fastestmirror checks
@@ -170,18 +170,28 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 ### Back on the Host
 ---
 
-1. Run the following commands:
+1.   Run the following commands:
 
 ```bash
-	vagrant package --output 'NAME'.box --base 'VirtualBox_Name'
+	vagrant package --output 'Name'.box --base 'VirtualBox_Name'
 ```
 
 ### If you wish to test your new BaseBox
 
-1. Run the following commands:
+1.   Run the following commands:
 
 ```bash
-	vagrant box add test-box package.box 
-	vagrant init test-box
+	vagrant box add 'VirtualBox_Name-2' 'Name'.box # VirtualBox_Name-2 should not already exist in VirtualBox
+	vagrant init 'VirtualBox_Name-2'
 	vagrant up
 ```
+
+### Otherwise, add it to your Vagrant until we make the location public
+
+1.   Run the following commands:
+
+```bash
+	vagrant box add 'VirtualBox_Name-2' 'Name'.box
+```
+
+2.   Modify any existing VagrantFile's with 'VirtualBox_Name-2' and no URL and it should use your new box correctly.
