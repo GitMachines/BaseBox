@@ -71,7 +71,25 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 11.  Boot the VM and install the OS
 
-12.  Make the root password 'vagrant' per Vagrant's recommendations.
+   11a.   Skip the media test
+
+   11b.   Select OK at welcome message
+
+   11c.   Select English for the Installer language
+
+   11d.   Select us as the keyboard model
+
+   11e.   Select Re-initialize all
+
+   11f.   Ensure System clock uses UTC is checked and select America/New York as the time zone
+
+   11g.   Provie the root password 'vagrant' per Vagrant's recommendations. (Select Use Anyway)
+
+   11h.   Select Use entire drive
+
+   11i.   Select Write changes to disk
+
+   11j.   Reboot ( Congradulations :) )
 
 ### On VM:
 ---
@@ -101,9 +119,9 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 1.   Run one of the following commands:
 
 ```bash
-	rpm -i http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm -y
+	rpm -i http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.i686.rpm
 		or
-	rpm -i http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm -y
+	rpm -i http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm
 ```
 
 2.   Run the following commands:
@@ -112,7 +130,6 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 	rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
 	rpm -i http://yum.puppetlabs.com/el/6/products/i386/puppetlabs-release-6-7.noarch.rpm
 	yum install nano vim openssh-server wget gcc bzip2 make dkms puppet -y
-	yum groupinstall "X Window System" -y # Required for VirtualBox Guest Additions, sadly
 ```
 
 #### Configure our system
@@ -134,11 +151,12 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 	echo -e "\n# Added for Vagrant Support\nDefaults	env_keep += \"SSH_AUTH_SOCK\"\n%admin   ALL=NOPASSWD:ALL" >> /etc/sudoers
 	# Attempts to comment out requiretty, per Vagrant's documentation
 	sed -ie 's/Defaults\s\+requiretty/#Defaults   requiretty/g' /etc/sudoers
+	sed -ie 's/#UseDNS yes/UseDNS no/g' /etc/ssh/sshd_config
 	mkdir ~vagrant/.ssh
 	curl -k https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub > ~vagrant/.ssh/authorized_keys
 	chmod 0700 ~vagrant/.ssh
 	chmod 0600 ~vagrant/.ssh/authorized_keys
-	chown -R vagrant:vagrant ~/vagrant/.ssh
+	chown -R vagrant:vagrant ~vagrant/.ssh
 ```
 
 2.   Use the context menu to auto-mount the VirtualBox Guest Additions ISO.
@@ -147,7 +165,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 ```bash
 	mount /dev/dvd /mnt
-	/mnt/VBoxLinuxAdditions.run
+	/mnt/VBoxLinuxAdditions.run # Ignore failure to find X.Org Window System, as per Vagrant's documentation
 ```
 
 #### Set our VM's hostname
