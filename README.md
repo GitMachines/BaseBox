@@ -51,7 +51,7 @@ A repository containing instructions, scripts, etc., relating to creating a GitM
 
 3.   Specify Red Hat [(64 bit) if necessary] 
 
-4.   Give the VM at least the recommened memory size (Don't go overboard either)
+4.   Give the VM at least the recommened memory size (At least 512MB)
 
 5.   Select "Create a virtual hard drive now"
 
